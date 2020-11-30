@@ -10,30 +10,10 @@ static char sb = 1;
 static int x = 500;
 static char dim_state = 0;
 
-void go_down()               /* will set sb to move frequency down */
-{
-  sb = 0;
-  turn_on_red();
-}
-
-void go_up()                // will set sb to move frequency up
-{
-  sb = 1;
-  turn_on_green();
-}
-
 void turn_on_red()      /* turns red light on and green off */
 {
   red_on = 1;
   green_on = 0;
-  led_changed = 1;
-  led_update();
-}
-
-void turn_on_green()     /*turns on green light and red off */
-{
-  green_on = 1;
-  red_on = 0;
   led_changed = 1;
   led_update();
 }
@@ -92,42 +72,37 @@ void main_siren() //state machine for siren
   switch(state){
   case 0:
   case 1: //for two states it will do the same thing (go up)
-    go_up();
+    sb = 1;
     state++;
     break;
   case 2:
-    go_down();
+    sb = 0;
     state = 0;
   default:
     break;
   }
 }
 
-void dimmer() /* dims the lgihts at different intensities */
+void dimmer(char light) /* dims the lgihts at different intensities */
 {
-  static char dim_select = 0;
-  switch(dim_select){
+  char led = 0;
+  switch(light){
   case 0: //red 25
-    red_25();
-    dim_select = 1;
+    led = red_25();;
     break;
   case 1: //50 %
-    red_50();
-    dim_select = 2;
+    led = red_50();
     break;
   case 2: //75 %
-    red_75();
-    dim_select = 3;
-    break;
-  case 3:
-    red_on = 1;
-    led_update();
-    dim_select = 0;
+    led = red_75();
     break;
   }
+
+  led_changed = led;
+  led_update();
 }
 
-void red_25()  /* goes on off off off */
+char red_25()  /* goes on off off off */
 {
   switch(dim_state){
   case 0:
@@ -146,13 +121,11 @@ void red_25()  /* goes on off off off */
     red_on = 0;
     dim_state = 0;
     break;
-    // default: buzzer_set_period(1000);
   }
-  led_changed = 1;
-  led_update();
+  return 1;
 }
 
-void red_75() /* goes on on on off */
+char red_75() /* goes on on on off */
 {
   switch(dim_state){
   case 0:
@@ -171,11 +144,11 @@ void red_75() /* goes on on on off */
     dim_state = 0;
     break;
   }
-  led_changed = 1;
-  led_update();
+
+  return 1;
 }
 
-void red_50()		/* turns on and off leds */
+char red_50()		/* turns on and off leds */
 {
  switch (dim_state) {
  case 0:
@@ -187,13 +160,11 @@ void red_50()		/* turns on and off leds */
   dim_state = 0;
   break;
  }
- led_changed = 1;
- led_update();			/* always changes an led */
+ return 1;
 }
 
 
 void houses(char house_state){
-  // drawPixel(0,0,COLOR_RED);
   switch(house_state){
   case 0:
     drawHouse();
@@ -209,5 +180,13 @@ void houses(char house_state){
     break;
   default:
     house_state = 0;
+  }
+}
+
+void drawShape(){
+  static char color = 0;
+  switch(color){
+  case 0: drawDiamond(COLOR_BLUE,COLOR_FIREBRICK); color = 1; break;
+  case 1:drawDiamond(COLOR_FIREBRICK,COLOR_BLUE); color = 0; break;
   }
 }

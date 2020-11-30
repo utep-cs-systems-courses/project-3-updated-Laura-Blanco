@@ -18,56 +18,46 @@ void wdt_c_handler()
   static char count = 0;
   switch(button_pressed){
     case 1:
-     if(++count == 125){
+      buzzer_set_period(0);
+     if(++count == 250){
+       drawString8x12(30,10,"Welcome",COLOR_PURPLE,COLOR_BLACK);
        houses(house_state);
        house_state++;
        if(house_state > 2){
-	 clearScreen(COLOR_PURPLE);
 	 house_state = 0;
        }
-      // clearScreen(COLOR_BLACK);
-      // buzzer_set_period(0);
-       //two_beats();
-       // drawHouse();
-       // houses();
-       // two_beats();
        count = 0;
      }
     break;
-    case 2:
-     if(++count == 125){
-       // buzzer_set_period(0);
-      // if(++count == 125){
-	// dimmer();
-       count = 0;
-       // }
-       }
-    break;
     case 3:
-      buzzer_advance();
-     if((++count % 25) == 0){
-      buzzer_advance();
-      // if(count == 250){
-	//	main_siren();
-	//	count = 0;
-	// }
-      count = 0;
+      if((++count % 25) == 0){
+	buzzer_advance();
+      } 
+      if(++count == 250){
+	main_siren();
+	drawShape();
+	redrawScreen = 1;
+	count = 0;
       }
+    break;
+    case 2:
+     buzzer_set_period(0);
+     static char dim = 0;
+     if(++count == 200){
+       count = 0;
+       dim++;
+     }
+     else if(dim == 10){
+       dim = 0;
+     }
+     dimmer(dim);
     break;
     case 4:
-      //  else if (button_pressed == 4){
-      if(++count == 125){
-	red_on = 1;
-	led_changed = 1;
-	led_update();
+       if(++count == 62){
+	two_beats();
+	count = 0;
+	redrawScreen = 1;
       }
-	//two_beats();
-     // red_on = 0;
-     // green_on = 0;
-     // led_changed = 1;
-     // led_update();
-      count = 0;
-      
      break;
   }
   redrawScreen = 1;
@@ -94,6 +84,7 @@ void main()
    if (redrawScreen) {
     redrawScreen = 0;
    }
+   // clearScreen(COLOR_BLACK);
       //  drawString5x7(20,20, "hello", fontFgColor, COLOR_BLUE);
       // drawString8x12(20,20, "hello",COLOR_GREEN, COLOR_BLUE);
   

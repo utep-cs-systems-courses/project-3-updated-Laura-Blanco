@@ -4,13 +4,15 @@
 void two_beats();
 void buzzer_advance();
 void main_siren();
-void dimmer();
+void dimmer(char light);
 void turn_on_red();
 void turn_on_green();
 void both_on();
-void red_25();
-void red_75();
-void red_50();
+char red_25();
+char red_75();
+char red_50();
 void houses(char house_state);
+void drawShape();
+
 
 #endif // included
