@@ -9,7 +9,7 @@
 
 #define LED_GREEN BIT6
 
-static char beats = 0;
+char beats;
 short redrawScreen = 1;
 char button_pressed;
 static char house_state;
@@ -22,24 +22,23 @@ void wdt_c_handler()
       buzzer_set_period(0);
      if(++count == 250){
        drawString8x12(30,10,"Welcome",COLOR_PURPLE,COLOR_BLACK);
-       houses(house_state);
-       house_state++;
-       if(house_state > 2){
-	 house_state = 0;
-       }
+       houses();
        count = 0;
      }
     break;
     case 3:
       if((++count % 25) == 0){
+       	drawShape();
+	//	two_beats();
 	buzzer_advance();
+	//buzzer_advance();
       } 
       if(++count == 250){
 	main_siren();
-	drawShape();
-	redrawScreen = 1;
+	//	drawShape();
+       	redrawScreen = 1;
 	count = 0;
-      }
+        }
     break;
     case 2:
      buzzer_set_period(0);
@@ -47,7 +46,7 @@ void wdt_c_handler()
      if(++count == 200){
        count = 0;
        dim++;
-     }
+     }x
      else if(dim == 3){
        dim = 0;
      }
@@ -58,7 +57,6 @@ void wdt_c_handler()
 	 two_beats(beats);
 	 count = 0;
 	 redrawScreen = 1;
-	 beats++;
        }
      break;
   }

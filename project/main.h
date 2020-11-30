@@ -3,7 +3,7 @@
 
 void switch_pressed();
 
-extern char buttons[5];
+extern static char beats;
 
 
 
