@@ -5,7 +5,7 @@
 #ifndef lcddraw_included
 #define lcddraw_included
 
-void drawDiamonds();
+void drawDiamond();
 void drawHouse();
 void House2(int wave);
 

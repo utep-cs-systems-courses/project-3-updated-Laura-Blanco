@@ -2,18 +2,20 @@
 #include "p2switches.h"
 #include "lcdutils.h"
 #include "lcddraw.h"
+#include "stateMachines.h"
 
 static unsigned char switch_mask;
 static unsigned char switches_last_reported;
 static unsigned char switches_current;
+char button_pressed = 0;
 
-void
+static void
 switch_update_interrupt_sense()
 {
   switches_current = P2IN & switch_mask;
   /* update switch interrupt to detect changes from current buttons */
   P2IES |= (switches_current);  /* if switch up, sense down */
-  P2IES &= (switches_current | ~switch_mask); /* if switch down, sense up */
+  // P2IES &= (switches_current | ~switch_mask); /* if switch down, sense up */
 }
 void 
 p2sw_init(unsigned char mask)
@@ -44,5 +46,18 @@ __interrupt_vec(PORT2_VECTOR) Port_2(){
   if (P2IFG & switch_mask) {  /* did a button cause this interrupt? */
     P2IFG &= ~switch_mask;	/* clear pending sw interrupts */
     switch_update_interrupt_sense();
+    switch_interrupt_handler();
+  }
+}
+
+void switch_interrupt_handler()
+{
+  unsigned int switch_state = p2sw_read();
+  unsigned int i;
+  for(i = 0; i < 4; i++){
+    if((switch_state & (1 << i)) == 0){
+      button_pressed = i+ 1;
+      break;
+    }
   }
 }

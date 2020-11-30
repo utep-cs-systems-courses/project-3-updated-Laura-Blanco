@@ -38,4 +38,5 @@ switch_interrupt_handler()
     button_pressed = 3; //pressed button 3
   else if((p2val & SW4) == 0)
     button_pressed = 4; //pressed button 4
+  led_update();
 }

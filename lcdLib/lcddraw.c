@@ -5,7 +5,7 @@
 #include "lcddraw.h"
 
 
-void drawDiamonds(){
+void drawDiamond(){
   int r = 0;
   int c = 0;
   int center = 50;

@@ -5,6 +5,10 @@
 #ifndef lcddraw_included
 #define lcddraw_included
 
+void drawDiamond();
+void drawHouse();
+void House2(int wave);
+
 /** Draw single pixel at col, row 
  *
  *  \param col Column to draw to
@@ -64,6 +68,9 @@ void drawChar8x12(u_char col, u_char row, char c, u_int fgColorBGR, u_int bgColo
  */
 void drawRectOutline(u_char colMin, u_char rowMin, u_char width, u_char height,
 		     u_int colorBGR);
+
+
 #endif // included
+
 
 

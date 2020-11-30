@@ -2,7 +2,9 @@
 #include "stateMachines.h"
 #include "led.h"
 #include "buzzer.h"
-#include "switches.h"
+#include "p2switches.h"
+#include "lcdutils.h"
+#include "lcddraw.h"
 
 static char sb = 1;
 static int x = 500;
@@ -48,12 +50,14 @@ void two_beats(){   /* will go green on then both on then red on then both on an
   static char two_state = 0;
   switch(two_state){
   case 0:
-    turn_on_green();
+    turn_on_red();
     buzzer_set_period(0);
     two_state = 1;
     break;
   case 1:
-    both_on();
+    red_on = 0;
+    led_changed = 1;
+    led_update();
     buzzer_set_period(1000);
     two_state = 2;
     break;
@@ -63,7 +67,9 @@ void two_beats(){   /* will go green on then both on then red on then both on an
     two_state = 3;
     break;
   case 3:
-    both_on();
+    red_on = 0;
+    led_changed = 1;
+    led_update();
     buzzer_set_period(1000);
     two_state = 0;
     break;
@@ -183,4 +189,25 @@ void red_50()		/* turns on and off leds */
  }
  led_changed = 1;
  led_update();			/* always changes an led */
+}
+
+
+void houses(char house_state){
+  // drawPixel(0,0,COLOR_RED);
+  switch(house_state){
+  case 0:
+    drawHouse();
+    house_state = 1;
+    break;
+  case 1:
+    House2(0);
+    house_state =2;
+    break;
+  case 2:
+    House2(1);
+    house_state = 0;
+    break;
+  default:
+    house_state = 0;
+  }
 }

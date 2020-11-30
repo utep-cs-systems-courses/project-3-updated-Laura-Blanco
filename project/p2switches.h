@@ -10,12 +10,11 @@
 
 #define SWITCHES (SW1 | SW2 | SW3 | SW4)
 
-char switch_update_interrupt_sense();
+extern char button_pressed;
+
 void switch_interrupt_handler();
 unsigned int p2sw_read();
 void p2sw_init(unsigned char mask);
 
-
-extern char button_pressed;
 
 #endif // included

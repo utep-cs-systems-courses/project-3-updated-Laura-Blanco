@@ -11,5 +11,6 @@ void both_on();
 void red_25();
 void red_75();
 void red_50();
+void houses(char house_state);
 
 #endif // included
