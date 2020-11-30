@@ -5,7 +5,31 @@
 #include "lcddraw.h"
 
 
-void drawDiamond(){
+void drawHeart(unsigned int color){
+  int r = 0;
+  int c = 0;
+  int center = 30;
+  int row = 10;
+  int c2 = 60;
+  for(r = 0; r < 20; r++){
+    for(c = 0; c <= r; c++){
+      drawPixel(center + c, r + row, color);
+      drawPixel(center -c, r + row, color);
+      drawPixel(c2+ c, r + row, color);
+      drawPixel(c2 -c , r + row, color);
+    }
+  }
+
+  int c3 = 45;
+  int r2 = 30;
+  for(c = 0; c < 50; c++){
+    for(r = 0; r <= 35 - c; r++){
+      drawPixel(c3 + c, (r + c3)- 15, color);
+      drawPixel(c3 -c, (r + c3)- 15, color);
+    }
+  }
+}
+void drawDiamond(unsigned int color1, unsigned int color2){
   int r = 0;
   int c = 0;
   int center = 50;
@@ -13,16 +37,16 @@ void drawDiamond(){
   
   for(r = 0; r < 31; r++){
     for(c = 0; c <= r; c++){
-      drawPixel(center + c, r+ row, COLOR_FIREBRICK);
-      drawPixel(center -c, r+ row, COLOR_FIREBRICK);
+      drawPixel(center + c, r+ row, color1);
+      drawPixel(center -c, r+ row, color1);
     }
   }
 
   
   for(c = 0; c < 31; c++){
     for(r = 0; r <= 30 - c ; r++){
-      drawPixel(center + c,( r+ center) + 10, COLOR_SEA_GREEN);
-      drawPixel(center - c, (r+ center) + 10 ,COLOR_SEA_GREEN);
+      drawPixel(center + c,( r+ center) + 10, color2);
+      drawPixel(center - c, (r+ center) + 10 ,color2);
     }
   }
   

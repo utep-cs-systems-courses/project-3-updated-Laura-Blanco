@@ -14,13 +14,14 @@ main()
   u_char width = screenWidth, height = screenHeight;
 
   clearScreen(COLOR_BLACK);
-  drawDiamond();
+  drawDiamond(COLOR_FIREBRICK, COLOR_BLUE);
   clearScreen(COLOR_BLACK);
   drawHouse();
   House2(0);
   House2(1);
- 
-  //drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_RED);
+  drawHeart(COLOR_RED);
+  drawHeart(COLOR_FIREBRICK);
+  // drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_RED);
   //  drawString8x12(20,20,"hello",COLOR_GREEN,COLOR_BLUE);
 
   // fillRectangle(30,30, 60, 60, COLOR_ORANGE);
