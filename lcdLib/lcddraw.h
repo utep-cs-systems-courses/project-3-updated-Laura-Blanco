@@ -5,7 +5,9 @@
 #ifndef lcddraw_included
 #define lcddraw_included
 
-
+void drawDiamonds();
+void drawHouse();
+void House2(int wave);
 
 /** Draw single pixel at col, row 
  *
