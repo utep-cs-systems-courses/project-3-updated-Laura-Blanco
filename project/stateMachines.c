@@ -53,6 +53,7 @@ void two_beats(){   /* will go green on then both on then red on then both on an
     buzzer_set_period(1000);
     two_state = 0;
     break;
+  
   }
 }
 void buzzer_advance()

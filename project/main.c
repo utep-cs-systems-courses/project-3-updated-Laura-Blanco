@@ -9,6 +9,7 @@
 
 #define LED_GREEN BIT6
 
+static char beats = 0;
 short redrawScreen = 1;
 char button_pressed;
 static char house_state;
@@ -47,17 +48,18 @@ void wdt_c_handler()
        count = 0;
        dim++;
      }
-     else if(dim == 10){
+     else if(dim == 3){
        dim = 0;
      }
      dimmer(dim);
     break;
     case 4:
        if(++count == 62){
-	two_beats();
-	count = 0;
-	redrawScreen = 1;
-      }
+	 two_beats(beats);
+	 count = 0;
+	 redrawScreen = 1;
+	 beats++;
+       }
      break;
   }
   redrawScreen = 1;
