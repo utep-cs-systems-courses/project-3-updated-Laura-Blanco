@@ -4,7 +4,7 @@
 	This program creates a toy using interrupts and can display different
 	sounds, lights and images on the screen depending on the button pressed.
 
-##How to run
+# How to run
       1. In the directory type make all
       2. Move into the project folder and type make load after the device is
       connected to the computer.
