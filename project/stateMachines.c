@@ -11,7 +11,7 @@ char previous;
 static char sb = 1;
 static int x = 500;
 unsigned char dim_state = 0;
-static char house_state = 0;
+unsigned char house_state = 0;
 
 void two_beats(char state){   /* state machine that has a hospital like sound */
   char led = 0;
@@ -145,6 +145,7 @@ char red_50()		/* turns on and off leds */
 } */
 
 
+/*
 void houses(){
   switch(house_state){
   case 0:    //alternating houses shape
@@ -160,7 +161,7 @@ void houses(){
     house_state = 0;
     break;
   }
-  }
+  }*/
 
 void diamonds(){
   static char color = 0;

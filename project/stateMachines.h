@@ -4,6 +4,7 @@
 extern unsigned int fontColor1;
 extern unsigned int fontColor2;
 extern unsigned char dim_state;
+extern unsigned char house_state;
 
 void two_beats(char beats);
 void buzzer_advance();

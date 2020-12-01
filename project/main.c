@@ -11,7 +11,7 @@ char previous;
 char beats;
 short redrawScreen = 1;
 char button_pressed;
-static char house_state;
+//static char house_state;
 unsigned int fontColor1 = COLOR_BLUE;
 unsigned int fontColor2 = COLOR_RED;
 
