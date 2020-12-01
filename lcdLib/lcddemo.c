@@ -12,15 +12,17 @@ main()
   configureClocks();
   lcd_init();
   u_char width = screenWidth, height = screenHeight;
-
+ 
   clearScreen(COLOR_BLACK);
   drawDiamond(COLOR_FIREBRICK, COLOR_BLUE);
   clearScreen(COLOR_BLACK);
   drawHouse();
   House2(0);
   House2(1);
-  drawHeart(COLOR_RED);
-  drawHeart(COLOR_FIREBRICK);
+  clearScreen(COLOR_BLACK);
+  drawHeart(1);
+  drawHeart(0);
+
   // drawString5x7(20,20, "hello", COLOR_GREEN, COLOR_RED);
   //  drawString8x12(20,20,"hello",COLOR_GREEN,COLOR_BLUE);
 

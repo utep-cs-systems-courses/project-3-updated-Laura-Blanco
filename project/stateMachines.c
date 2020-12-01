@@ -7,56 +7,33 @@
 #include "lcddraw.h"
 
 char beats;
+char size;
 static char sb = 1;
 static int x = 500;
 static char dim_state = 0;
-
-char red_state(char red) /* changes red led based on parameter if parameter is not valid then it turns it off */
-{
-  red_on = red;
-  green_on = 0;
-
-  return 1;
-  // led_changed = 1;
-  // led_update();
-}
-
-void both_on() /* turns on both leds */
-{
-  green_on = 1;
-  red_on = 1;
-  led_changed = 1;
-  led_update();
-}
 
 void two_beats(char state){   /* will go green on then both on then red on then both on and repeat */
   char led = 0;
   // static char two_state = 0;
   switch(state){
   case 0:
-    led = red_state(0);
     buzzer_set_period(0);
     beats = 1;
     break;
   case 1:
-    led = red_state(1);
     buzzer_set_period(1000);
     beats = 2;
     break;
   case 2:
-    led = red_state(0);
     buzzer_set_period(0);
     beats = 3;
     break;
   case 3:
-    led = red_state(1);
     buzzer_set_period(1000);
     beats = 0;
     break;
   
   }
-  led_changed = led;
-  led_update();
 }
 void buzzer_advance()
 {
@@ -198,9 +175,10 @@ void drawShape(){
 void draw4(){
   static char heart = 0;
   switch(heart){
-  case 0: clearScreen(COLOR_BLACK); heart = 1;break;
-  case 1: drawHeart(COLOR_RED); heart = 2; break;
-  case 2: drawHeart(COLOR_FIREBRICK); heart = 0; break;
+    // case 1: clearScreen(COLOR_BLACK); heart = 2;break;
+  case 0: drawHeart(0); heart = 1; break;
+  case 1: drawHeart(1); heart = 2; break;
+  case 2: clearScreen(COLOR_BLACK); heart = 0; break;
   }
 }
 
@@ -219,6 +197,10 @@ void button_states(){
   case 3:
     draw4();
     two_beats(beats);
+    break;
+  case 4:
+    buzzer_set_period(0);
+    drawString8x12(30,60,"Goodbye",COLOR_WHITE,COLOR_MAGENTA);
     break;
     
   }

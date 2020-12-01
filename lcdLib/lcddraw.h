@@ -5,7 +5,7 @@
 #ifndef lcddraw_included
 #define lcddraw_included
 
-void drawHeart(unsigned int color);
+void drawHeart(char size);
 void drawDiamond(unsigned int color1, unsigned int color2);
 void drawHouse();
 void House2(int wave);

@@ -5,29 +5,52 @@
 #include "lcddraw.h"
 
 
-void drawHeart(unsigned int color){
+void drawHeart(char size){
+  int color = COLOR_RED;
   int r = 0;
   int c = 0;
-  int center = 30;
+  int center = 45;
   int row = 10;
-  int c2 = 60;
-  for(r = 0; r < 20; r++){
-    for(c = 0; c <= r; c++){
-      drawPixel(center + c, r + row, color);
-      drawPixel(center -c, r + row, color);
-      drawPixel(c2+ c, r + row, color);
-      drawPixel(c2 -c , r + row, color);
-    }
-  }
-
-  int c3 = 45;
+  int c2 = 75;
+  int c3 = 60;
   int r2 = 30;
-  for(c = 0; c < 50; c++){
-    for(r = 0; r <= 35 - c; r++){
-      drawPixel(c3 + c, (r + c3)- 15, color);
-      drawPixel(c3 -c, (r + c3)- 15, color);
+
+  if(size == 1){
+    for(r = 0; r < 30; r++){
+      for(c = 0; c <= r; c++){
+	drawPixel(center +c, r + row,color);
+	drawPixel(center -c, r + row,color);
+	drawPixel(c2 + c, r + row, color);
+	drawPixel(c2 -c, r + row, color);
+      }
     }
+
+    for(c = 0; c < 60; c++){
+      for(r = 0; r <= 45 - c; r++){
+	drawPixel(c3 + c, (r+c3) - 20, color);
+	drawPixel(c3 - c, (r + c3) -20, color);
+      }
+    }
+
   }
+  else{
+    for(r = 0; r < 20; r++){
+      for(c = 0; c <= r; c++){
+	drawPixel(center + c, r + row, color);
+	drawPixel(center -c, r + row, color);
+	drawPixel(c2+ c, r + row, color);
+	drawPixel(c2 -c , r + row, color);
+      }
+    }
+
+  
+    for(c = 0; c < 50; c++){
+      for(r = 0; r <= 35 - c; r++){
+	drawPixel(c3 + c, (r + c3)- 30, color);
+	drawPixel(c3 -c, (r + c3)- 30, color);
+      }
+    }
+  }    
 }
 void drawDiamond(unsigned int color1, unsigned int color2){
   int r = 0;
