@@ -6,7 +6,7 @@ extern unsigned int fontColor2;
 extern unsigned char dim_state;
 extern unsigned char house_state;
 
-void two_beats(char beats);
+void two_beats();
 void buzzer_advance();
 void main_siren();
 void dimmer(signed char light);

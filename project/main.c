@@ -5,13 +5,11 @@
 #include "lcddraw.h"
 #include "led.h"
 #include "buzzer.h"
-#include "p2switches.h"
+#include "switches.h"
 
 char previous;
-char beats;
 short redrawScreen = 1;
 char button_pressed;
-//static char house_state;
 unsigned int fontColor1 = COLOR_BLUE;
 unsigned int fontColor2 = COLOR_RED;
 
@@ -35,7 +33,7 @@ void wdt_c_handler()
 
   if(button_pressed == 4){ 
     if(count == 125){ //when it hits 125 we move on to the next dimming 
-      drawString8x12(30,60,"goodbye",COLOR_WHITE,COLOR_MAGENTA);
+      drawString8x12(30,60,"goodbye",COLOR_WHITE,COLOR_MAGENTA); //draws goodbye
       count = 0;
       dim++;
     }
@@ -52,7 +50,7 @@ void main()
   P1DIR |= LED_GREEN;		/**< Green led on when CPU on */		
   P1OUT |= LED_GREEN;
   configureClocks();
-  p2sw_init(15); //initialize buttons
+  switch_init();
   lcd_init();
   led_init();
   buzzer_init();

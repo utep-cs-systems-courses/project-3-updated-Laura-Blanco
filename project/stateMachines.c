@@ -2,20 +2,19 @@
 #include "stateMachines.h"
 #include "led.h"
 #include "buzzer.h"
-#include "p2switches.h"
+#include "switches.h"
 #include "lcdutils.h"
 #include "lcddraw.h"
 
-char beats;
 char previous;
 static char sb = 1;
 static int x = 500;
 unsigned char dim_state = 0;
 unsigned char house_state = 0;
 
-void two_beats(char state){   /* state machine that has a hospital like sound */
-  char led = 0;
-  switch(state){
+void two_beats(){   /* state machine that has a hospital like sound */
+  static char beats = 0;
+  switch(beats){
   case 0:
     buzzer_set_period(0);
     beats = 1;
@@ -200,7 +199,7 @@ void button_states(){
     break;
   case 3:
     hearts();  //draw hearts
-    two_beats(beats);
+    two_beats();
     previous = 3;
     break;
   case 4: //this case is done in interrupt
