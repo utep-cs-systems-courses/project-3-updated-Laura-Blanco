@@ -172,31 +172,55 @@ void houses(){
   static char house_state = 0;
   switch(house_state){
   case 0:
-    clearScreen(COLOR_BLACK);
+    drawHouse();
     house_state = 1;
     break;
   case 1:
-    drawHouse();
-    house_state = 2;
+    House2(0);
+    house_state =2;
     break;
   case 2:
-    House2(0);
-    house_state =3;
-    break;
-  case 3:
     House2(1);
     house_state = 0;
     break;
-  default:
-    house_state = 0;
   }
 }
 
 void drawShape(){
   static char color = 0;
   switch(color){
-  case 0: clearScreen(COLOR_BLACK); color = 1;
-  case 1: drawDiamond(COLOR_BLUE,COLOR_FIREBRICK); color = 2; break;
-  case 2:drawDiamond(COLOR_FIREBRICK,COLOR_BLUE); color = 0; break;
+  case 0: clearScreen(COLOR_BLACK); color = 1;break;
+  case 1: drawDiamond(fontColor1,fontColor2); color = 2; break;
+  case 2:drawDiamond(fontColor1,fontColor2); color = 1; break;
   }
 }
+
+void draw4(){
+  static char heart = 0;
+  switch(heart){
+  case 0: clearScreen(COLOR_BLACK); heart = 1;break;
+  case 1: drawHeart(COLOR_RED); heart = 2; break;
+  case 2: drawHeart(COLOR_FIREBRICK); heart = 0; break;
+  }
+}
+
+void button_states(){
+  switch(button_pressed){
+  case 1:
+    buzzer_set_period(0);
+    drawString8x12(30,10,"Welcome",COLOR_PURPLE,COLOR_BLACK);
+    houses();
+    break;
+  case 2:
+    buzzer_advance();
+    main_siren();
+    drawShape();
+    break;
+  case 3:
+    draw4();
+    two_beats(beats);
+    break;
+    
+  }
+}
+    
