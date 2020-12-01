@@ -7,14 +7,13 @@
 #include "lcddraw.h"
 
 char beats;
-char size;
+char previous;
 static char sb = 1;
 static int x = 500;
 static char dim_state = 0;
 
-void two_beats(char state){   /* will go green on then both on then red on then both on and repeat */
+void two_beats(char state){   /* state machine that has a hospital like sound */
   char led = 0;
-  // static char two_state = 0;
   switch(state){
   case 0:
     buzzer_set_period(0);
@@ -55,8 +54,7 @@ void main_siren() //state machine for siren
     sb = 1;
     state++;
     break;
-  case 3:
-  case 2:
+  case 2: //go down
     sb = 0;
     state = 0;
   default:
@@ -64,17 +62,17 @@ void main_siren() //state machine for siren
   }
 }
 
-void dimmer(char light) /* dims the lgihts at different intensities */
+void dimmer(signed char light) /* dims the lgihts at different intensities */
 {
   char led = 0;
   switch(light){
-  case 0: //red 25
+  case -3: //red 25
     led = red_25();;
     break;
-  case 1: //50 %
+  case -2: //50 %
     led = red_50();
     break;
-  case 2: //75 %
+  case -1: //75 %
     led = red_75();
     break;
   }
@@ -148,7 +146,7 @@ char red_50()		/* turns on and off leds */
 void houses(){
   static char house_state = 0;
   switch(house_state){
-  case 0:
+  case 0:    //alternating houses shape
     drawHouse();
     house_state = 1;
     break;
@@ -163,7 +161,7 @@ void houses(){
   }
 }
 
-void drawShape(){
+void diamonds(){
   static char color = 0;
   switch(color){
   case 0: clearScreen(COLOR_BLACK); color = 1;break;
@@ -172,35 +170,40 @@ void drawShape(){
   }
 }
 
-void draw4(){
+void hearts(){
   static char heart = 0;
   switch(heart){
-    // case 1: clearScreen(COLOR_BLACK); heart = 2;break;
-  case 0: drawHeart(0); heart = 1; break;
+  case 0: drawHeart(0); heart = 1; break; //smaller heart
   case 1: drawHeart(1); heart = 2; break;
   case 2: clearScreen(COLOR_BLACK); heart = 0; break;
   }
 }
 
 void button_states(){
+  if(button_pressed != previous){ //if its the first time pressing the button clear screen
+    clearScreen(COLOR_BLACK);
+  }
   switch(button_pressed){
   case 1:
     buzzer_set_period(0);
     drawString8x12(30,10,"Welcome",COLOR_PURPLE,COLOR_BLACK);
-    houses();
+    houses();//draw house
+    previous = 1;
     break;
   case 2:
-    buzzer_advance();
+    buzzer_advance(); //start advancing buzzer
     main_siren();
-    drawShape();
+    diamonds();  //draw diamonds
+    previous = 2;
     break;
   case 3:
-    draw4();
+    hearts();  //draw hearts
     two_beats(beats);
+    previous = 3;
     break;
-  case 4:
+  case 4: //this case is done in interrupt
     buzzer_set_period(0);
-    drawString8x12(30,60,"Goodbye",COLOR_WHITE,COLOR_MAGENTA);
+    previous = 4;
     break;
     
   }
