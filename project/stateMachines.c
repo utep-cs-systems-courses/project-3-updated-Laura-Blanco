@@ -10,7 +10,8 @@ char beats;
 char previous;
 static char sb = 1;
 static int x = 500;
-static char dim_state = 0;
+unsigned char dim_state = 0;
+static char house_state = 0;
 
 void two_beats(char state){   /* state machine that has a hospital like sound */
   char led = 0;
@@ -62,24 +63,25 @@ void main_siren() //state machine for siren
   }
 }
 
+
 void dimmer(signed char light) /* dims the lgihts at different intensities */
 {
   char led = 0;
   switch(light){
-  case -3: //red 25
+  case -1: //red 25
     led = red_25();;
     break;
   case -2: //50 %
     led = red_50();
     break;
-  case -1: //75 %
+  case -3: //75 %
     led = red_75();
     break;
   }
 
   led_changed = led;
   led_update();
-}
+  }
 
 char red_25()  /* goes on off off off */
 {
@@ -126,9 +128,9 @@ char red_75() /* goes on on on off */
 
   return 1;
 }
-
+/*
 char red_50()		/* turns on and off leds */
-{
+/*{
  switch (dim_state) {
  case 0:
    red_on = 1;
@@ -140,11 +142,10 @@ char red_50()		/* turns on and off leds */
   break;
  }
  return 1;
-}
+} */
 
 
 void houses(){
-  static char house_state = 0;
   switch(house_state){
   case 0:    //alternating houses shape
     drawHouse();
@@ -159,7 +160,7 @@ void houses(){
     house_state = 0;
     break;
   }
-}
+  }
 
 void diamonds(){
   static char color = 0;
