@@ -63,18 +63,18 @@ void main_siren() //state machine for siren
   }
 }
 
-
+/*
 void dimmer(signed char light) /* dims the lgihts at different intensities */
-{
+/*{
   char led = 0;
   switch(light){
-  case -1: //red 25
+  case 1: //red 25
     led = red_25();;
     break;
-  case -2: //50 %
+  case 2: //50 %
     led = red_50();
     break;
-  case -3: //75 %
+  case 3: //75 %
     led = red_75();
     break;
   }
@@ -82,7 +82,7 @@ void dimmer(signed char light) /* dims the lgihts at different intensities */
   led_changed = led;
   led_update();
   }
-
+*/
 char red_25()  /* goes on off off off */
 {
   switch(dim_state){

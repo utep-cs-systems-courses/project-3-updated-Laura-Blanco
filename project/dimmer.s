@@ -16,8 +16,8 @@ jt:
 dimmer:
 	sub #2, r1 		;make space for local variable
 	mov.b #0, 0(r1)		;led = 0
-	cmp.b #-4,r12 		;if light >= then finish
-	jl end
+	cmp.b #4,r12 		;if light <= then finish
+	jge end
 	add.b r12,r12		;x2
 	mov jt(r12),r0
 

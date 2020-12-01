@@ -18,7 +18,7 @@ unsigned int fontColor2 = COLOR_RED;
 void wdt_c_handler()
 {
   static char count = 0;
-  static signed char dim = -1;
+  static signed char dim = 0;
   
   if(++count == 250){
     if(fontColor1 == COLOR_BLUE){ //changes font colors each time around
@@ -37,10 +37,10 @@ void wdt_c_handler()
     if(count == 125){ //when it hits 125 we move on to the next dimming 
       drawString8x12(30,60,"goodbye",COLOR_WHITE,COLOR_MAGENTA);
       count = 0;
-      dim--;
+      dim++;
     }
-    if(dim == -4){ //when we have reached the limit of possible switch cases we restart
-      dim = -1;
+    if(dim == 3){ //when we have reached the limit of possible switch cases we restart
+      dim = 0;
     }
     dimmer(dim); //call dimming function
     redrawScreen = 1;
