@@ -14,7 +14,7 @@ red_50:
 	cmp.b #2, &dim_state 	;if dim_state is >= 2 end
 	jhs done
 	mov.b &dim_state, r13	;r13 = dim_state
-	add.b r13,312		;x2
+	add.b r13,r13		;x2
 	mov jt(r13),r0
 	
 option0:
